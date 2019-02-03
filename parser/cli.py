@@ -102,8 +102,15 @@ class ParserCli:
 @click.command()
 @click.option('--municipio', default=DC_CODE, help='A municipio para uso')
 @click.option('--turno', default=TURNO, help='Turno que será analisado')
-def main(municipio, turno):
-   cli = ParserCli(municipio=municipio, turno=turno)
+@click.option('--secao_file', default=SECAO_FILE, help='Nome do arquivo do detalhe de votação por seção')
+@click.option('--boletim_file', default=BOLETIM_FILE, help='Nome do arquivo do do boletim de urna')
+def main(municipio, turno, secao_file, boletim_file):
+   cli = ParserCli(
+       municipio=municipio,
+       turno=turno,
+       secao_file=secao_file,
+       boletim_file=boletim_file
+    )
 
    cli.run()
 
