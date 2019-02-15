@@ -15,6 +15,14 @@ from build_dataset.boletim_urna import getConsolidateCandidates, insertCandidate
 from constants import *
 
 
+columns_to_remove_on_candidate_df = [
+    'codigo_municipio',
+    'secao',
+    'uf',
+    'zona'
+]
+
+
 class ParserCli:
     def __init__(
         self,
@@ -80,13 +88,22 @@ class ParserCli:
         _boletimUrna = self.getDataframeBoletimUrna()
         _candidates = getConsolidateCandidates(_boletimUrna)
         df_candidates = pd.DataFrame(_candidates)
-        
+        # removing unnecessary columns
+        candidate_columns = list(
+            filter(
+                lambda column: column not in columns_to_remove_on_candidate_df, df_candidates.columns
+            )
+        )
+
         consolidatedInformation = insertCandidateInformation(
             df_secoes=df_secoes,
             df_candidates=df_candidates
         )
-        
-        return pd.DataFrame(consolidatedInformation)
+
+        return pd.DataFrame(
+            consolidatedInformation,
+            columns=COLUMNS_TO_DETALHE_SECAO + candidate_columns
+        )
     
     def run (self):
         print('Generate initial informations')
