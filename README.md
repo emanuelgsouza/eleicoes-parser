@@ -51,3 +51,34 @@ Se você executar `python cli.py`, ele irá pegar as configurações padrão, qu
 ```sh
 python cli.py --help
 ```
+
+## Qual o output?
+
+O parser irá gerar dois arquivos na pasta `parser/dataset`:
+
+### detalhe_votacao_secao_{codigo_municipio}.csv
+
+Este arquivo contem os dados consolidados por seção. Mais quais dados e quais colunas?
+
+- *codigo_municipio*: o código do município que foi avaliado
+- *secao*: o código da seção eleitoral
+- *zona*: o código da zona eleitoral
+- *aptos*: quantidade de eleitores aptos para a seção em análise
+- *abstencoes*: quantidade de eleitores que não compareceram
+- *nao_considerados*: soma dos eleitores que não compareceram, juntamente com os votos anulados, brancos e nulos
+- *votos_anulados*: quantidade de votos anulados
+- *votos_brancos*: quantidade de votos brancos
+- *votos_legenda*: quantidade de votos por legenda, que é quando a pessoa vota num partido, e não num candidato
+- *votos_nominais*: quantidade de votos nominais (válidos)
+- *votos_nulos*: quantidade de votos nulos
+- *percentual_abstencoes*: percentual correspondente
+- *percentual_anulados*: percentual correspondente
+- *percentual_brancos*: percentual correspondente
+- *percentual_legenda*: percentual correspondente
+- *percentual_nominais*: percentual correspondente
+- *percentual_nulos*: percentual correspondente
+- As duas últimas colunas terão os nomes do candidatos, e por conseguinte, o voto de cada seção por candidato
+
+### detalhe_votacao_zona_{codigo_municipio}.csv
+
+Este arquivo é o resultado da somatória por seção do arquivo acima, exceto que não dispõe das colunas com os percentuais, nem da coluna `seção`.
