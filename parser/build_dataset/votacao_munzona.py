@@ -17,6 +17,9 @@ LABELS_TO_REMOVE = [
 
 def buildVotacaoZonaDataframe (df_detalhe_secao):
     columns = list(df_detalhe_secao.columns.values)
+    codigo_municipio = df_detalhe_secao['codigo_municipio'][0].item()
     cols = list(filter(lambda item : item not in LABELS_TO_REMOVE, columns))
     df_filtered = df_detalhe_secao[cols].apply(pd.to_numeric)
-    return df_filtered.groupby('zona').sum()
+    df = df_filtered.groupby('zona').sum().reset_index()
+    df.insert(0, 'codigo_municipio', codigo_municipio)
+    return df

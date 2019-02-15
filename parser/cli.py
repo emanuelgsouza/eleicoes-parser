@@ -78,9 +78,9 @@ class ParserCli:
     def getDataframeByZona (self, df):
         return buildVotacaoZonaDataframe(df_detalhe_secao=df)
 
-    def saveDataframe(self, df, prop, use_index=False):
+    def saveDataframe(self, df, prop):
         csv_name = self.getCSVName(prop)
-        df.to_csv('dataset/{}'.format(csv_name), index = use_index)
+        df.to_csv('dataset/{}'.format(csv_name), index=False)
         return df
     
     def getCandidateSecoesinformation (self):
@@ -114,7 +114,7 @@ class ParserCli:
         self.saveDataframe(df, DETALHE_FILE_NAME)
 
         print('Save votacao_by_zona')
-        self.saveDataframe(df_zona, MUNZONA_FILE_NAME, use_index=True)
+        self.saveDataframe(df_zona, MUNZONA_FILE_NAME)
 
 @click.command()
 @click.option('--municipio', default=DC_CODE, help='A municipio para uso')
